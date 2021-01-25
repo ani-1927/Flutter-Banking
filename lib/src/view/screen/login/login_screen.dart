@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 
 //This is the login screen
 class LoginScreen extends StatefulWidget {
+
   static const routeName = '/Login';
 
   @override
@@ -14,6 +15,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  bool _isHidden = true;
   //controller for email
   final TextEditingController _emailController = new TextEditingController();
 
@@ -32,9 +34,13 @@ class _LoginScreenState extends State<LoginScreen> {
   //it is a getting used to get the textField for password
   TextField get passwordField => TextField(
         controller: _passwordController,
-        obscureText: true,
-        decoration: InputDecoration(labelText: StringResources.textPassword),
-      );
+        obscureText: _isHidden,
+        decoration: InputDecoration(labelText: StringResources.textPassword,suffix: InkWell(
+            onTap: _togglePasswordView,
+            child: Icon( _isHidden
+                ? Icons.visibility
+                : Icons.visibility_off,)),
+      ));
 
   @override
   Widget build(BuildContext context) {
@@ -114,5 +120,11 @@ class _LoginScreenState extends State<LoginScreen> {
       });
       Util.showToastMessage(message: error.toString());
     }
+  }
+
+  void _togglePasswordView() {
+    setState(() {
+      _isHidden = !_isHidden;
+    });
   }
 }

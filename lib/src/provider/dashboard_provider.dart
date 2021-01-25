@@ -107,5 +107,6 @@ class DashboardProvider extends ChangeNotifier {
   //setter to set _callAPI
   void setCallAPI(bool value) {
     _callAPI = value;
+    notifyListeners();
   }
 }
